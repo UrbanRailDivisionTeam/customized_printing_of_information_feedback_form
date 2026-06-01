@@ -4,4 +4,12 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "litestar[standard]>=2.21.1",
+    "pydantic>=2.13.4",
+    "fpdf2>=2.8.0",
+]
+# 部署到内网后想要更新依赖需要解除以下注释
+# [[tool.uv.index]]
+# url = "http://10.29.1.242:3003/pip/simple"
+# default = true
