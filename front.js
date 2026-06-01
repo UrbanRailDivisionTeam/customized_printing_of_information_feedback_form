@@ -88,8 +88,7 @@ function didMount() {
             fetch(API_URL, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(payload)
             })
@@ -97,13 +96,20 @@ function didMount() {
                     if (!response.ok) {
                         throw new Error('HTTP ' + response.status + ' ' + response.statusText);
                     }
-                    return response.json();
+                    return response.blob();
                 })
-                .then(function (data) {
-                    console.log('[SUCCESS] 后端响应:', data);
-                    // 这里可以添加业务逻辑，例如提示保存成功
+                .then(function (blob) {
+                    var url = window.URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = meta.id + '.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    console.log('[SUCCESS] PDF 下载已触发');
                     if (typeof self.showMessage === 'function') {
-                        self.showMessage('数据同步成功');
+                        self.showMessage('PDF 已生成');
                     }
                 })
                 .catch(function (err) {
