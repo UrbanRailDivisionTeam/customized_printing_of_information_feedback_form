@@ -142,13 +142,12 @@ def generate_pdf(data: SyncPayload, md_text: str) -> bytes:
     pdf.set_font("Fangsong", "", 12) # Content body not bold
     
     # Use multi_cell to draw the content box spanning full table width
-    # Calculate minimum height for content box (min 150pt to fill A4)
-    content_lines = merged_text.count('\n') + 1
-    content_height = max(150, content_lines * line_height)
-    pdf.multi_cell(table_width, content_height / content_lines, merged_text, border=1, align="L")
+    pdf.multi_cell(table_width, line_height, merged_text, border=1, align="L")
     y_end_merged = pdf.get_y()
     
-    # Ensure next row starts at the correct Y
+    # Enforce minimum 150pt content box height to fill A4 page
+    # Keep line spacing at normal line_height, just extend Y position
+    y_end_merged = max(y_end_merged, y_start_merged + 150)
     pdf.set_y(y_end_merged)
 
     # Row 4 & 5: Handler and others
