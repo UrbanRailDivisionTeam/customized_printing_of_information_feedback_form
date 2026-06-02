@@ -135,6 +135,12 @@ def generate_pdf(data: SyncPayload, md_text: str) -> bytes:
     # Prepare text for multi_cell
     merged_text = f"{primary_recipient}：\n{content_val}"
 
+    # Pad with blank lines to ensure minimum 150pt content box height (15 lines × 10pt)
+    min_lines = 150 // line_height  # 15 lines
+    current_lines = merged_text.count('\n') + 1
+    if current_lines < min_lines:
+        merged_text += '\n' * (min_lines - current_lines)
+
     # Draw the content part full width
     x_start_merged = pdf.get_x()
     y_start_merged = pdf.get_y()
@@ -144,14 +150,6 @@ def generate_pdf(data: SyncPayload, md_text: str) -> bytes:
     # Use multi_cell to draw the content box spanning full table width
     pdf.multi_cell(table_width, line_height, merged_text, border=1, align="L")
     y_end_merged = pdf.get_y()
-    
-    # Enforce minimum 150pt content box height to fill A4 page
-    # If content is too short, draw an empty cell with LRB borders to extend the box
-    content_rendered = y_end_merged - y_start_merged
-    if content_rendered < 150:
-        pdf.cell(table_width, 150 - content_rendered, "", border="LRB", 
-                 new_x="LMARGIN", new_y="NEXT")
-        y_end_merged = pdf.get_y()
     
     pdf.set_y(y_end_merged)
 
