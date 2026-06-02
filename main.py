@@ -146,8 +146,13 @@ def generate_pdf(data: SyncPayload, md_text: str) -> bytes:
     y_end_merged = pdf.get_y()
     
     # Enforce minimum 150pt content box height to fill A4 page
-    # Keep line spacing at normal line_height, just extend Y position
-    y_end_merged = max(y_end_merged, y_start_merged + 150)
+    # If content is too short, draw an empty cell with LRB borders to extend the box
+    content_rendered = y_end_merged - y_start_merged
+    if content_rendered < 150:
+        pdf.cell(table_width, 150 - content_rendered, "", border="LRB", 
+                 new_x="LMARGIN", new_y="NEXT")
+        y_end_merged = pdf.get_y()
+    
     pdf.set_y(y_end_merged)
 
     # Row 4 & 5: Handler and others
