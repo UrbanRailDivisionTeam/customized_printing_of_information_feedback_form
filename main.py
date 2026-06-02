@@ -130,7 +130,7 @@ def generate_pdf(data: SyncPayload, md_text: str) -> bytes:
     
     # Get values and replace delimiters
     primary_recipient = get_field_value(data.fields, "crrc_mulbasedatafield", get_field_value(data.fields, "主送")).replace(";", "、").replace("；", "、")
-    content_val = get_field_value(data.fields, "crrc_largetextfield", get_field_value(data.fields, "内容"))
+    content_val = get_field_value(data.fields, "crrc_largetextfield", get_field_value(data.fields, "内容")).strip()
     
     # Prepare text for multi_cell
     merged_text = f"{primary_recipient}：\n{content_val}"
@@ -142,7 +142,10 @@ def generate_pdf(data: SyncPayload, md_text: str) -> bytes:
     pdf.set_font("Fangsong", "", 12) # Content body not bold
     
     # Use multi_cell to draw the content box spanning full table width
-    pdf.multi_cell(table_width, line_height, merged_text, border=1, align="L")
+    # Calculate minimum height for content box (min 150pt to fill A4)
+    content_lines = merged_text.count('\n') + 1
+    content_height = max(150, content_lines * line_height)
+    pdf.multi_cell(table_width, content_height / content_lines, merged_text, border=1, align="L")
     y_end_merged = pdf.get_y()
     
     # Ensure next row starts at the correct Y
