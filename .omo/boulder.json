@@ -1,0 +1,93 @@
+{
+  "schema_version": 2,
+  "active_work_id": "fix-fangsong-bold-b2763a19",
+  "works": {
+    "fix-fangsong-bold-b2763a19": {
+      "work_id": "fix-fangsong-bold-b2763a19",
+      "active_plan": "D:\\workspace\\customized_printing_of_information_feedback_form\\.omo\\plans\\fix-fangsong-bold.md",
+      "plan_name": "fix-fangsong-bold",
+      "status": "completed",
+      "started_at": "2026-06-02T08:09:04.100Z",
+      "updated_at": "2026-06-02T08:17:45.740Z",
+      "session_ids": [
+        "opencode:ses_178ad5a4effeZsPvPXgel5cydf"
+      ],
+      "session_origins": {
+        "opencode:ses_178ad5a4effeZsPvPXgel5cydf": "direct"
+      },
+      "agent": "atlas",
+      "task_sessions": {
+        "todo:1": {
+          "task_key": "todo:1",
+          "task_label": "1",
+          "task_title": "字体修复：10 处 Fangsong Bold → SimHei + _load_fonts 清理",
+          "session_id": "opencode:ses_1789e2cb0ffeHwRHdzxd1c2G3x",
+          "agent": "Sisyphus-Junior",
+          "category": "quick",
+          "updated_at": "2026-06-02T08:13:34.462Z",
+          "started_at": "2026-06-02T08:12:31.196Z",
+          "status": "completed",
+          "ended_at": "2026-06-02T08:13:34.461Z",
+          "elapsed_ms": 63265
+        },
+        "todo:2": {
+          "task_key": "todo:2",
+          "task_label": "2",
+          "task_title": "内容布局优化：strip 空白行 + 最低高度 150pt",
+          "session_id": "opencode:ses_1789a1e75ffels7qQKvV3tp3rp",
+          "agent": "Sisyphus-Junior",
+          "category": "quick",
+          "updated_at": "2026-06-02T08:17:01.501Z",
+          "started_at": "2026-06-02T08:16:12.401Z",
+          "status": "completed",
+          "ended_at": "2026-06-02T08:17:01.501Z",
+          "elapsed_ms": 49100
+        }
+      },
+      "ended_at": "2026-06-02T08:17:45.740Z",
+      "elapsed_ms": 521640
+    }
+  },
+  "active_plan": "D:\\workspace\\customized_printing_of_information_feedback_form\\.omo\\plans\\fix-fangsong-bold.md",
+  "started_at": "2026-06-02T08:09:04.100Z",
+  "status": "completed",
+  "updated_at": "2026-06-02T08:17:45.740Z",
+  "session_ids": [
+    "opencode:ses_178ad5a4effeZsPvPXgel5cydf"
+  ],
+  "session_origins": {
+    "opencode:ses_178ad5a4effeZsPvPXgel5cydf": "direct"
+  },
+  "plan_name": "fix-fangsong-bold",
+  "task_sessions": {
+    "todo:1": {
+      "task_key": "todo:1",
+      "task_label": "1",
+      "task_title": "字体修复：10 处 Fangsong Bold → SimHei + _load_fonts 清理",
+      "session_id": "opencode:ses_1789e2cb0ffeHwRHdzxd1c2G3x",
+      "agent": "Sisyphus-Junior",
+      "category": "quick",
+      "updated_at": "2026-06-02T08:13:34.462Z",
+      "started_at": "2026-06-02T08:12:31.196Z",
+      "status": "completed",
+      "ended_at": "2026-06-02T08:13:34.461Z",
+      "elapsed_ms": 63265
+    },
+    "todo:2": {
+      "task_key": "todo:2",
+      "task_label": "2",
+      "task_title": "内容布局优化：strip 空白行 + 最低高度 150pt",
+      "session_id": "opencode:ses_1789a1e75ffels7qQKvV3tp3rp",
+      "agent": "Sisyphus-Junior",
+      "category": "quick",
+      "updated_at": "2026-06-02T08:17:01.501Z",
+      "started_at": "2026-06-02T08:16:12.401Z",
+      "status": "completed",
+      "ended_at": "2026-06-02T08:17:01.501Z",
+      "elapsed_ms": 49100
+    }
+  },
+  "agent": "atlas",
+  "ended_at": "2026-06-02T08:17:45.740Z",
+  "elapsed_ms": 521640
+}
