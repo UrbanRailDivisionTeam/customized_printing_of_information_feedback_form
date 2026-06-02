@@ -1,12 +1,14 @@
 function didMount() {
     var self = this;
-    var dom = document.getElementById('crrc_baritemap');
+    var dom = document.querySelector('#crrc_baritemap[data-title="测试按钮1"]');
     if (dom) {
+        console.log("找到了crrc_baritemap按钮");
         // 创建新元素替换旧元素（彻底移除所有监听器）
         var newDom = dom.cloneNode(true);
         dom.parentNode.replaceChild(newDom, dom);
         // 挂载新事件
         newDom.addEventListener('click', function (e) {
+            console.log("触发了点击事件");
             // ========== 1. 获取表单元数据 ==========
             var meta = self.getFormMeta();
             console.log('[META] 表单ID:', meta.id);
@@ -46,7 +48,18 @@ function didMount() {
                         console.log(field.id + ' (input):', field.value);
                         return;
                     }
-                    // 2. 没找到 input，找 span，取最深层嵌套的
+                    // 2. 没找到 input，再找 textarea，递归找最深层嵌套的
+                    var textarea = value_dom.querySelector('textarea');
+                    if (textarea) {
+                        var deepestTextarea = textarea;
+                        while (deepestTextarea.querySelector('textarea')) {
+                            deepestTextarea = deepestTextarea.querySelector('textarea');
+                        }
+                        field.value = deepestTextarea.value;
+                        console.log(field.id + ' (textarea 最深层):', field.value);
+                        return;
+                    }
+                    // 3. 没找到 input，找 span，取最深层嵌套的
                     var span = value_dom.querySelector('span');
                     if (span) {
                         var deepestSpan = span;
