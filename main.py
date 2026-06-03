@@ -145,7 +145,7 @@ def build_field_value_map(data: SyncPayload) -> dict[str, str]:
 
 def fill_template_and_export_pdf(data: SyncPayload) -> bytes:
     """用 win32com 打开 Word 模板，将字段值填入标题右侧空白单元格，导出 PDF"""
-    word = win32.Dispatch("Word.Application")
+    word = win32.Dispatch("Kwps.Application")
     word.Visible = False
     word.DisplayAlerts = 0  # wdAlertsNone
 

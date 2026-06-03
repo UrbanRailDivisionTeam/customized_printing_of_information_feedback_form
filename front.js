@@ -79,7 +79,7 @@ function didMount() {
             }));
             console.groupEnd();
 
-            var API_URL = 'http://localhost:12378/api/sync';  // 请替换为实际接口
+            var API_URL = 'http://10.24.5.54:12377/api/sync';  // 请替换为实际接口
             var payload = {
                 formId: meta.id,
                 formType: meta.type,
