@@ -7,11 +7,7 @@ requires-python = ">=3.13"
 dependencies = [
     "litestar[standard]>=2.21.1",
     "pydantic>=2.13.4",
-    "fpdf2>=2.8.0",
-    "docxtpl>=0.20.2",
-    "olefile>=0.47",
     "pywin32>=311",
-    "requests>=2.34.2",
 ]
 # 部署到内网后想要更新依赖需要解除以下注释
 # [[tool.uv.index]]

@@ -1,14 +1,12 @@
 function didMount() {
     var self = this;
-    var dom = document.querySelector('#crrc_baritemap[data-title="测试按钮1"]');
+    var dom = document.getElementById('crrc_baritemap');
     if (dom) {
-        console.log("找到了crrc_baritemap按钮");
         // 创建新元素替换旧元素（彻底移除所有监听器）
         var newDom = dom.cloneNode(true);
         dom.parentNode.replaceChild(newDom, dom);
         // 挂载新事件
         newDom.addEventListener('click', function (e) {
-            console.log("触发了点击事件");
             // ========== 1. 获取表单元数据 ==========
             var meta = self.getFormMeta();
             console.log('[META] 表单ID:', meta.id);
@@ -48,18 +46,7 @@ function didMount() {
                         console.log(field.id + ' (input):', field.value);
                         return;
                     }
-                    // 2. 没找到 input，再找 textarea，递归找最深层嵌套的
-                    var textarea = value_dom.querySelector('textarea');
-                    if (textarea) {
-                        var deepestTextarea = textarea;
-                        while (deepestTextarea.querySelector('textarea')) {
-                            deepestTextarea = deepestTextarea.querySelector('textarea');
-                        }
-                        field.value = deepestTextarea.value;
-                        console.log(field.id + ' (textarea 最深层):', field.value);
-                        return;
-                    }
-                    // 3. 没找到 input，找 span，取最深层嵌套的
+                    // 2. 没找到 input，找 span，取最深层嵌套的
                     var span = value_dom.querySelector('span');
                     if (span) {
                         var deepestSpan = span;
@@ -113,16 +100,34 @@ function didMount() {
                 })
                 .then(function (blob) {
                     var url = window.URL.createObjectURL(blob);
-                    var a = document.createElement('a');
-                    a.href = url;
-                    a.download = meta.id + '.pdf';
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                    window.URL.revokeObjectURL(url);
-                    console.log('[SUCCESS] PDF 下载已触发');
+
+                    // 创建隐藏 iframe 用于打印 PDF
+                    var iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = url;
+                    iframe.onload = function () {
+                        try {
+                            setTimeout(function () {
+                                iframe.contentWindow.focus();
+                                iframe.contentWindow.print();
+                            }, 500);
+                        } catch (e) {
+                            console.error('[ERROR] 打印失败:', e);
+                            if (typeof self.showMessage === 'function') {
+                                self.showMessage('打印失败: ' + e.message, 'error');
+                            }
+                        }
+                        // 延迟清理 iframe，等待打印对话框
+                        setTimeout(function () {
+                            document.body.removeChild(iframe);
+                            window.URL.revokeObjectURL(url);
+                        }, 60000);
+                    };
+                    document.body.appendChild(iframe);
+
+                    console.log('[SUCCESS] PDF 打印已触发');
                     if (typeof self.showMessage === 'function') {
-                        self.showMessage('PDF 已生成');
+                        self.showMessage('PDF 已生成，正在打印');
                     }
                 })
                 .catch(function (err) {
